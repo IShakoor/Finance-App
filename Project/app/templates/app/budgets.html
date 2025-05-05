@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- load frontend styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Budgets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'app/css/budgets.css' %}">
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-overlay">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+    
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Finance App</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'transactions' %}">Transactions</a>
+            <a href="{% url 'budgets' %}">Budgets</a>
+            <a href="{% url 'savings' %}">Savings</a>
+            <a href="{% url 'insights' %}">Insights</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+
+        <!-- display budgets -->
+        <div id="budget-container">
+            <h2>Budgets</h2>
+            <div id="budget-list-container">
+                <div id="budget-list"></div>
+            </div>
+    
+            <!-- add budget popup -->
+            <button id="add-budget-btn" class="add-budget-btn">+</button>
+            <div id="popup-form" class="popup hidden">
+                <form id="add-budget-form" class="popup-content">
+                    <span class="close-btn" id="close-popup">&times;</span>
+                    <h3>Add New Budget</h3>
+
+                    <label for="budget-name">Budget Name:</label>
+                    <input type="text" id="budget-name" placeholder="Budget Name" required>
+
+                    <label for="budget-amount">Target Amount (£):</label>
+                    <input type="number" id="budget-amount" placeholder="Target Amount (£)" required>
+
+                    <label for="budget-category">Category:</label>
+                    <select id="budget-category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <!-- categories loaded from js -->
+                    </select>
+
+                    <label for="budget-time-period">Time Period:</label>
+                    <select id="budget-time-period" required>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="annually">Annually</option>
+                    </select>
+
+                    <button type="submit">Add Budget</button>
+                </form>
+            </div>
+
+            <!-- edit budget popup -->
+            <div id="editBudgetPopup" class="popup hidden">
+                <div class="popup-content">
+                    <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                    <h2>Edit Budget</h2>
+                    <form id="editBudgetForm">
+                        <input type="hidden" id="editBudgetId">
+
+                        <label>Name:</label>
+                        <input type="text" id="editBudgetName">
+
+                        <label>Target Amount (£):</label>
+                        <input type="number" id="editBudgetTarget" step="0.01">
+
+                        <label>Category:</label>
+                        <select id="editBudgetCategory">
+                            <option value="" disabled selected>Select Category</option>
+                        </select>
+
+                        <label>Time Period:</label>
+                        <select id="editBudgetTimePeriod">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="annually">Annually</option>
+                        </select>
+
+                        <button id="saveChangesBtn">Save Changes</button>
+                        <button id="deleteBudgetBtn">Delete Budget</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- plaid script -->
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script src="{% static 'app/js/budgets.js' %}"></script>
+    <script src="{% static 'app/js/menu.js' %}"></script>
+    <script>
+        const isAuthenticated = "{{ user.is_authenticated|lower }};";
+        const hasAccessToken = "{{ user.plaid_access_token|lower }};";
+    </script>
+</body>
+</html>

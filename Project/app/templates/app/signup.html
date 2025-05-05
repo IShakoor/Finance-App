@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/signup.css' %}">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Create an Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="form-errors">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% for field in form %}
+                {% if field.name == "password1" %}
+                    <p class="help-text">{{ field.help_text|linebreaksbr }}</p>
+                {% endif %}
+                <div class="form-group">
+                    {{ field.errors }}
+                    {{ field }}
+                </div>
+            {% endfor %}        
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="footer">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
+    </div>
+    <script src="{% static 'app/js/signup.js' %}"></script>
+</body>
+</html>

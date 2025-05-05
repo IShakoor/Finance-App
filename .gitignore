@@ -1,2 +1,26 @@
+# OS-specific
 .DS_Store
+
+# Python
+*.pyc
+__pycache__/
+
+# Environment
 *.env
+venv/
+.env/
+.env.* 
+
+# Logs
+*.log
+
+# Django specific
+staticfile/
+media/
+
+# IDEs
+.vscode/
+.idea/
+
+# Pytest cache
+.pytest_cache/

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- load frontend styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-overlay">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+    
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Finance App</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'transactions' %}">Transactions</a>
+            <a href="{% url 'budgets' %}">Budgets</a>
+            <a href="{% url 'savings' %}">Savings</a>
+            <a href="{% url 'insights' %}">Insights</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <!-- user details sections -->
+        <div class="details-section">
+            <div class="details-header">
+                <h2>User Details</h2>
+                <a id="edit-details-button" href="">
+                    <i class="fa-solid fa-user-pen"></i>
+                </a>
+            </div>
+            <div class="profile-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            
+            <div class="user-info">
+                <p>{{ user.username }}</p>
+                <p>{{ user.email }}</p>
+                <p>Joined on {{ user.date_joined }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit user details popup -->
+        <div id="edit-user-details-popup" class="popup hidden">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeEditUserDetailsPopup()">&times;</span>
+                <h2>Edit User Details</h2>
+                <form id="edit-user-details-form">
+                    <input type="hidden" id="edit-userid" value="{{ user.id }}">
+
+                    <label for="edit-username">Username:</label>
+                    <input type="text" id="edit-username" value="{{ user.username }}">
+
+                    <label for="edit-email">Email:</label>
+                    <input type="email" id="edit-email" value="{{ user.email }}">
+
+                    <label for="edit-current-password">Current Password:</label>
+                    <input type="password" id="edit-current-password">
+
+                    <label for="edit-password">Enter New Password:</label>
+                    <input type="password" id="edit-password">
+
+                    <label for="edit-password-confirm">Confirm Password:</label>
+                    <input type="password" id="edit-password-confirm">
+
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- bank accounts info -->
+        <div class="accounts-section">
+            <div class="accounts-header">
+                <h2>Linked accounts</h2>
+            </div>
+            <div id="bank-accounts-list">
+                <!-- bank accounts loaded here -->
+            </div>
+        </div>
+        <button id="delete-account-button">Delete Account</button>
+    </main>
+    <script>const signupUrl = "{% url 'signup' %}";</script>
+    <script src="{% static 'app/js/profile.js' %}"></script>
+    <script src="{% static 'app/js/menu.js' %}"></script>
+</body>
+</html>

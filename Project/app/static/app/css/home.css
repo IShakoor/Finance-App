@@ -1,0 +1,609 @@
+/* ===============================
+   General Reset & Variables
+================================ */
+:root {
+    --primary-bg: #181a1b;
+    --secondary-bg: #1f2428;
+    --highlight-bg: #202e44;
+    --text-light: #eeeeee;
+    --text-muted: #9e9e9e;
+    --border-color: #393e46;
+    --box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    --font: 'Poppins', sans-serif;
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    display: flex;
+    height: 100vh;
+    background: var(--primary-bg);
+    color: var(--text-light);
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   Background Effects
+================================ */
+body::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--highlight-bg);
+    border-radius: 50%;
+    filter: blur(150px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+/* ===============================
+   Sidebar
+================================ */
+.sidebar {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--box-shadow);
+    width: 250px;
+    height: 95%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    margin: 20px 15px;
+}
+
+.sidebar-header h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    padding: 12px 16px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    transition: var(--transition);
+    color: var(--text-light);
+}
+
+.nav-links a:hover {
+    background: var(--highlight-bg);
+    box-shadow: var(--box-shadow);
+    transform: scale(1.05);
+    transition: var(--transition);
+}
+
+.message-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-button i {
+    margin: 0 auto;
+}
+
+.unread-indicator {
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--secondary-bg);
+    position: relative;
+    float: left;
+}
+
+
+/* ===============================
+   Main Content
+================================ */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    z-index: 1;
+}
+
+/* ===============================
+   Balances Section
+================================ */
+.balances-section {
+    position: absolute;
+    left: 280px;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.balance-box {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    width: 375px;
+    height: 450px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.balance-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.balance-item {
+    background: var(--highlight-bg);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.balance-item:hover{
+    transform: scale(1.02);
+    transition: var(--transition);
+}
+
+.balance-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.balance-item p {
+    font-size: 18px;
+    color: var(--text-muted);
+}
+
+/* ===============================
+   Buttons
+================================ */
+.add-btn, .popup button, .close-btn, .edit-btn {
+    background: var(--border-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.add-btn, .edit-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+}
+
+.add-btn:hover,
+.popup button:hover,
+.popup .close-btn:hover,
+.edit-btn:hover {
+    background: var(--highlight-bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+    transition: var(--transition);
+}
+
+.edit-btn {
+    font-size: 18px;
+}
+
+/* ===============================
+   Transactions Section
+================================ */
+.transactions-section {
+    position: absolute;
+    bottom: 20px;
+    left: 280px;
+    width: 375px;
+}
+
+.transactions-box {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    height: 330px;
+    overflow-y: auto;
+}
+
+/* Transaction Items */
+.transaction-item {
+    padding: 10px;
+    margin: 8px 0;
+    color: #181a1b;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.transaction-item:hover{
+    transform: scale(1.02);
+    transition: var(--transition);
+}
+
+.transaction-item.received {
+    background-color: #d4edda;
+    border-left: 5px solid green;
+}
+
+.transaction-item.sent {
+    background-color: #ffdddd;
+    border-left: 5px solid red;
+}
+
+/* ===============================
+   Popup Styling
+================================ */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.popup-content {
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    background: var(--secondary-bg);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 400px;
+}
+
+.popup-content h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    align-items: center;
+    text-align: center;
+}
+
+.popup-content input,
+.popup-content button {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: var(--radius);
+}
+
+.popup-content button {
+    background: #374f76;
+    box-shadow: var(--box-shadow);
+    font-size: 17px;
+    transition: var(--transition);
+    color: var(--text-light);
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.popup-content button:hover {
+    background: var(--highlight-bg);
+    transform: scale(1.05);
+}
+
+.popup-content .close-btn,
+.close-edit-btn,
+.close-budget-btn {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-light);
+}
+
+.popup-content .close-btn:hover {
+    background: none;
+}
+/* ===============================
+   Toggle Switch
+================================ */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Slider Style */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+    transition: var(--transition);
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: green;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* ===============================
+   savings section
+================================ */
+.savings-goal-section {
+    position: absolute;
+    bottom: 20px;
+    left: 670px;
+    width: 385px;
+}
+
+.savings-goal-box {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    height: 330px;
+}
+
+.savings-goal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.savings-goal-item {
+    background: var(--highlight-bg);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.savings-goal-item:hover{
+    transform: scale(1.02);
+    transition: var(--transition);
+}
+
+.savings-goal-item h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.savings-goal-item p {
+    font-size: 20px;
+    color: var(--text-muted);
+}
+
+.progress-circle {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+}
+
+.progress-background {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 10;
+}
+
+.progress-bar {
+    fill: none;
+    stroke: #4caf50;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+    font-size: 24px;
+    font-weight: bold;
+    fill: var(--text-light);
+}
+
+/* ===============================
+   budget section
+================================ */
+.budget-section {
+    position: absolute;
+    bottom: 20px;
+    left: 1070px;
+    width: 385px;
+}
+
+.budget-box {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    height: 330px;
+}
+
+.budget-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.budget-item {
+    background: var(--highlight-bg);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.budget-item:hover{
+    transform: scale(1.02);
+    transition: var(--transition);
+}
+
+.budget-item h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.budget-item p {
+    font-size: 20px;
+    color: var(--text-muted);
+}
+
+.popup-content select {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: var(--radius);
+    background: var(--secondary-bg);
+    color: var(--text-light);
+    cursor: pointer;
+    appearance: none;
+}
+
+.popup-content select option {
+    background: var(--secondary-bg);
+    color: var(--text-light);
+    padding: 10px;
+}
+
+/* ===============================
+    graph section
+================================ */
+.graph-container {
+    position: absolute;
+    bottom: 370px;
+    left: 670px;
+    width: 785px;
+}
+
+.graph-box {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    height: 448px;
+}
+
+/* ===============================
+    Connect account section
+================================ */
+.hidden {
+    display: none;
+}
+
+.connect-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+}
+
+.connect-btn {
+    background: #374f76;
+    border: none;
+    padding: 12px;
+    color: #eeeeee;
+    font-size: 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.connect-btn:hover {
+    background: #202e44;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+}

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-Factor-Authentication</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/verify_2fa.css' %}">
+</head>
+<body>
+    <div class="verify-container">
+        <h2>Enter Verification Code</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>Enter the verification code sent to your email:</label>
+            <input type="text" placeholder="Enter Verification Code" name="code" required>
+            <button type="submit">Submit</button>
+            <div class="form-errors">
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>

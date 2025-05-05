@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- load frontend styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Savings Goals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'app/css/savings.css' %}">
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-overlay">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+    
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Finance App</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'transactions' %}">Transactions</a>
+            <a href="{% url 'budgets' %}">Budgets</a>
+            <a href="{% url 'savings' %}">Savings</a>
+            <a href="{% url 'insights' %}">Insights</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+    
+    <main class="main-content">
+
+        <!-- display goals -->
+        <div id="savings-goals-container">
+            <h2>Savings Goals</h2>
+            <div id="goals-list-container">
+                <div id="goals-list">
+                </div>
+            </div>
+    
+            <!-- add goal popup -->
+            <button id="add-goal-btn" class="add-goal-btn">+</button>
+            <div id="popup-form" class="popup hidden">
+                <form id="add-goal-form" class="popup-content">
+                    <span class="close-btn" id="close-popup">&times;</span>
+                    <h3>Add New Goal</h3>
+                    <input type="text" id="goal-name" placeholder="Goal Name" required>
+                    <input type="number" id="goal-amount" placeholder="Target Amount (£)" required>
+                    <input type="number" id="goal-current" placeholder="Current Amount (£)" required>
+                    <input type="date" id="goal-date" placeholder="Date" required>
+                    <button type="submit">Add Goal</button>
+                </form>
+            </div>
+
+            <!-- edit goals popup -->
+            <div id="editGoalPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                    <h2>Edit Goal</h2>
+                    <form id="editGoalForm">
+                        <input type="hidden" id="editGoalId">
+                        <label>Name:</label>
+                        <input type="text" id="editGoalName">
+                        
+                        <label>Target Amount (£):</label>
+                        <input type="number" id="editGoalTarget" step="0.01">
+                        
+                        <label>Current Amount (£):</label>
+                        <input type="number" id="editGoalCurrent" step="0.01">
+                        
+                        <label>Goal Date:</label>
+                        <input type="date" id="editGoalDate">
+                        
+                        <button id="saveChangesBtn">Save Changes</button>
+                        <button id="deleteGoalBtn">Delete Goal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- plaid script -->
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script src="{% static 'app/js/savings.js' %}"></script>
+    <script src="{% static 'app/js/menu.js' %}"></script>
+    <script>
+        const isAuthenticated = "{{ user.is_authenticated|lower }};"
+        const hasAccessToken = "{{ user.plaid_access_token|lower }};"
+    </script>
+</body>
+</html>

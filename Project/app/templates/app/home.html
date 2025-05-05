@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- load frontend styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'app/css/home.css' %}">
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-overlay">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+
+    <!-- connect button -->
+    <div id="connect-section" class="connect-section">
+        <button id="connect-btn" class="connect-btn">Connect Bank Account</button>
+    </div>
+
+    <!-- hidden content -->
+    <div id="app-content" class="hidden">
+
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Finance App</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'transactions' %}">Transactions</a>
+                <a href="{% url 'budgets' %}">Budgets</a>
+                <a href="{% url 'savings' %}">Savings</a>
+                <a href="{% url 'insights' %}">Insights</a>
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            </nav>
+        </div>
+        
+        <main class="main-content">
+
+            <!-- balance section -->
+            <section id="balance-container" class="balances-section">
+                <div id="balance" class="balance-box">
+                    <div class="balance-header">
+                        <h2 class="balances-heading">Accounts</h2>
+                        <button id="connect-bank-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="balance-items"></div>
+                </div>
+            </section>
+
+            <!-- transactions section -->
+            <section id="transactions-container" class="transactions-section">
+                <div id="transactions-box" class="transactions-box">
+                    <div class="transactions-header">
+                        <h2 class="transactions-heading">Recent Transactions</h2>
+                        <button id="add-transaction-btn" class="add-btn">+</button>
+                    </div>
+                    <div id="transactions-items"></div>
+                </div>
+            </section>
+
+            <!-- popup form for adding transactions -->
+            <div id="transaction-form-popup" class="popup">
+                <div class="popup-content">
+                    <span id="close-popup-btn" class="close-btn">&times;</span>
+                    <h3>Add New Transaction</h3>
+                    <form id="add-transaction-form">
+                        <input type="text" id="transaction-name" placeholder="Name" required />
+
+                        <input type="number" id="transaction-amount" placeholder="Amount" required />
+
+                        <input type="date" id="transaction-date" required />
+
+                        <label for="transaction-category">Category:</label>
+                        <select id="transaction-category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <!-- categories will be loaded dynamically -->
+                        </select><br>
+        
+                        <label for="transaction-account">Accounts:</label>
+                        <select id="transaction-account" required>
+                            <option value="" disabled selected>Select Account</option>
+                            <!-- accounts will be loaded dynamically -->
+                        </select>
+
+                        <div class="toggle-container">
+                            <label class="switch">
+                                <input type="checkbox" id="transaction-type">
+                                <span class="slider round"></span>
+                            </label>
+                            <span id="transaction-type-label">Sent</span>
+                        </div>
+
+                        <button type="submit">Add Transaction</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- savings goal section -->
+            <section id="savings-goal-container" class="savings-goal-section">
+                <div id="savings-goal-box" class="savings-goal-box">
+                    <div class="savings-goal-header">
+                        <h2 class="savings-goal-heading">Upcoming Goal</h2>
+                        <button id="edit-goal-btn" class="edit-btn" onclick="openEditPopup()"><i class="fa-regular fa-pen-to-square"></i></button>
+                    </div>
+                    <div id="savings-goal-item"></div>
+                </div>
+            </section>
+
+            <!-- edit goals popup -->
+            <div id="edit-goal-popup" class="popup">
+                <div class="popup-content">
+                    <span class="close-edit-btn" onclick="closeEditPopup()">&times;</span>
+                    <h3>Edit Goal</h3>
+                    <form id="edit-goal-form">
+                        <input type="hidden" id="edit-goal-id">
+                        <label>Name:</label>
+                        <input type="text" id="edit-goal-name">
+                        
+                        <label>Target Amount (£):</label>
+                        <input type="number" id="edit-goal-target" step="0.01">
+                        
+                        <label>Current Amount (£):</label>
+                        <input type="number" id="edit-goal-current" step="0.01">
+                        
+                        <label>Goal Date:</label>
+                        <input type="date" id="edit-goal-date">
+                        
+                        <button id="save-edit-changes-btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- savings goal section -->
+            <section id="budget-container" class="budget-section">
+                <div id="budget-box" class="budget-box">
+                    <div class="budget-header">
+                        <h2 class="budget-heading">Upcoming Budget</h2>
+                        <button id="edit-budget-btn" class="edit-btn" onclick="openBudgetPopup()"><i class="fa-regular fa-pen-to-square"></i></button>
+                    </div>
+                    <div id="budget-item"></div>
+                </div>
+            </section>
+
+
+            <!-- edit budgets popup -->
+            <div id="edit-budget-popup" class="popup">
+                <div class="popup-content">
+                    <span class="close-budget-btn" onclick="closeBudgetPopup()">&times;</span>
+                    <h3>Edit Budget</h3>
+                    <form id="edit-budget-form">
+                        <input type="hidden" id="edit-budget-id">
+
+                        <label>Name:</label>
+                        <input type="text" id="edit-budget-name">
+                        
+                        <label>Target Amount (£):</label>
+                        <input type="number" id="edit-budget-target" step="0.01">
+                        
+                        <label>Category:</label>
+                        <select id="edit-budget-category">
+                            <option value="" disabled selected>Select Category</option>
+                        </select>
+
+                        <label>Time Period:</label>
+                        <select id="edit-budget-time-period">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="annually">Annually</option>
+                        </select>
+                        
+                        <button id="save-budget-changes-btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <section id="graph-container" class="graph-container">
+                <div class="graph-box" id="graph-box">
+                    <div class="graph-header">
+                        <h2 class="graph-heading">This Weeks Spending</h2>
+                    </div>
+                    <canvas id="chart"></canvas>
+                </div>
+            </section>
+                
+
+        </main>
+    </div>
+
+    <!-- plaid script -->
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'app/js/home.js' %}"></script>
+    <script src="{% static 'app/js/menu.js' %}"></script>
+    <script>
+        const isAuthenticated = "{{ user.is_authenticated|lower }}" === "true";
+        const hasAccessToken = "{{ user.plaid_access_token|default:'' }}" !== "";
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Transactions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'app/css/transactions.css' %}">
+</head>
+<body>
+
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Finance App</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'transactions' %}">Transactions</a>
+            <a href="{% url 'budgets' %}">Budgets</a>
+            <a href="{% url 'savings' %}">Savings</a>
+            <a href="{% url 'insights' %}">Insights</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+
+    <!-- main content -->
+    <div class="header">
+
+        <!-- search bar -->
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search transactions..." />
+        </div>
+
+        <!-- filter menu -->
+        <div class="filter-menu">
+            <h3>Filters</h3>
+            <form id="filter-form">
+                <label for="bank-account-filter">Account:</label>
+                <select id="bank-account-filter">
+                    <option value="">All Accounts</option>
+                    <!-- account options will be loaded dynamically -->
+                </select>
+
+                <label for="category">Category:</label>
+                <select name="category" id="category">
+                    <!-- categories loaded from js here -->
+                </select>
+                
+                <!-- filter by type -->
+                <label for="transaction-type-filter">Transaction Type:</label>
+                <select id="transaction-type-filter">
+                    <option value="">All</option>
+                    <option value="received">Received</option>
+                    <option value="sent">Sent</option>
+                </select>
+            
+                <!-- filter by date -->
+                <label for="start_date">Start Date:</label>
+                <input type="date" name="start_date" id="start_date" />
+            
+                <label for="end_date">End Date:</label>
+                <input type="date" name="end_date" id="end_date" />
+
+                <!-- filter by price -->
+                <label for="min_price">Min Price:</label>
+                <input type="number" id="min_price" step="0.01" placeholder="Min Price" />
+
+                <label for="max_price">Max Price:</label>
+                <input type="number" id="max_price" step="0.01" placeholder="Max Price" />
+            
+                <button type="submit">Apply</button>
+                <button type="button" id="clear-filters-btn">Clear</button>
+            </form>
+        </div>
+    <div>
+
+    <!-- transactions list -->
+    <div class="transactions-list" id="transactions-list">
+        <!-- transactions loaded from js here -->
+    </div>
+
+    <!-- edit transaction popup -->
+    <div id="edit-transaction-popup" class="popup">
+        <div class="popup-content">
+            <span id="close-edit-transaction-popup" class="close-btn">&times;</span>
+            <h3>Edit Transaction</h3>
+            <form id="edit-transaction-form">
+                <input type="hidden" id="editTransactionId">
+                <input type="text" id="edit-txn-name" placeholder="Name" required />
+                <input type="number" id="edit-txn-price" placeholder="Price" step="0.01" required />
+                <input type="date" id="edit-txn-date" required />
+
+                <label for="edit-transaction-category">Category:</label>
+                <select id="edit-transaction-category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <!-- categories loaded from js -->                    
+                </select>
+
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="edit-transaction-type">
+                        <span class="slider round"></span>
+                    </label>
+                    <span id="edit-transaction-type-label">Sent</span>
+                </div>
+
+                <button id="saveTransactionBtn">Save Changes</button>
+                <button id="deleteTransactionBtn">Delete Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Transaction Button -->
+    <button id="add-transaction-btn" class="add-btn">+</button>
+
+    <!-- Add Transaction Popup -->
+    <div id="add-transaction-popup" class="popup">
+        <div class="popup-content">
+            <span id="close-add-transaction-popup" class="close-btn">&times;</span>
+            <h3>Add Transaction</h3>
+            <form id="add-transaction-form">
+                <!-- Transaction Name -->
+                <input type="text" id="add-txn-name" placeholder="Name" required />
+
+                <!-- Transaction Price -->
+                <input type="number" id="add-txn-price" placeholder="Price" step="0.01" required />
+
+                <!-- Transaction Date -->
+                <input type="date" id="add-txn-date" required />
+
+                <label for="add-transaction-category">Category:</label>
+                <select id="add-transaction-category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <!-- categories will be loaded dynamically -->
+                </select><br>
+
+                <label for="add-transaction-account">Accounts:</label>
+                <select id="add-transaction-account" required>
+                    <option value="" disabled selected>Select Account</option>
+                    <!-- accounts will be loaded dynamically -->
+                </select>
+
+                <!-- Toggle for Sent/Received -->
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="add-transaction-type">
+                        <span class="slider round"></span>
+                    </label>
+                    <span id="add-transaction-type-label">Sent</span>
+                </div>
+
+                <button type="submit">Add Transaction</button>
+            </form>
+        </div>
+    </div>
+
+        <!-- pages -->
+        <div id="pagination">
+            <button id="prev-page">Previous</button>
+            <span id="page-info"></span>
+            <button id="next-page">Next</button>
+        </div>
+    </div>
+
+    <script src="{% static 'app/js/transactions.js' %}"></script>
+    <script src="{% static 'app/js/menu.js' %}"></script>
+</body>
+</html>

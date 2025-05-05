@@ -1,0 +1,83 @@
+/* Format for all */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Poppins', sans-serif; /* Font styles  */
+    background: #181a1b;
+    color: #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Blurry Circle Effect */
+body::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: #202e44;
+    border-radius: 50%;
+    filter: blur(150px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+/* Container */
+.logout-container {
+    text-align: center;
+    padding: 30px;
+    align-items: center;
+    height: auto;
+    justify-content: center;
+    flex-direction: column;
+    background: #1f2428;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #393e46;
+    position: relative;
+    z-index: 1;
+}
+
+/* Heading */
+.logout-container h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #eeeeee;
+}
+
+/* Button container */
+.logout-container a {
+    background: #374f76;
+    text-decoration: none;
+    color: #eeeeee;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 1000;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Button hover */
+.logout-container a:hover {
+    background: #202e44;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* button focus */
+.logout-container a:focus {
+    outline: none;
+}
