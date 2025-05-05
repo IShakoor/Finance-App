@@ -17,3 +17,6 @@ This finance app aims to simplify personal finance management by providing power
 - Django
 - Plaid API
 - JS
+
+## App Architecture:
+The app leverage OOP, which allows for modular code development and separation of concerns. This was combined with the model-view-controller (MVC) achitecture, which created logical tiers withing the application for different duties to be handled. FInally, the app utilises an internal REST API, which links the front and backend in a seamless and secure manner. By using a combination of these design patterns, the app can leverage the benefits of each, whilst mitigating their downsides. Particularly, a finance app must prioritise security above all, which this app does, however i have also tried to maximise scalability, efficiency and usability.
