@@ -115,8 +115,10 @@ def get_categories(request):
 
             # find categories from transactions
             for txn in response.added:
-                if txn.category:
-                    plaid_categories.add(txn.category[0])
+                if txn.personal_finance_category and txn.personal_finance_category.primary:
+                    plaid_categories.add(txn.personal_finance_category.primary.replace('_', ' '))
+                else:
+                    plaid_categories.add('Uncategorized')
 
             cursor = response.next_cursor
             if not response.has_more:
@@ -250,6 +252,12 @@ def sync_transactions(user):
                 if not matching_account:
                     skipped_count += 1
                     continue
+
+                # determine category using personal_finance_category.primary if available
+                if txn.personal_finance_category and txn.personal_finance_category.primary:
+                    category = txn.personal_finance_category.primary.replace('_', ' ')
+                else:
+                    category = 'Uncategorized'
                 
                 # create transaction
                 try:
@@ -259,7 +267,7 @@ def sync_transactions(user):
                         name=txn.name.strip(),
                         amount=str(txn.amount),
                         date=txn.date,
-                        category=txn.category[0] if txn.category else 'Uncategorized',
+                        category=category,
                         is_received=txn.amount < 0,
                         transaction_id=txn.transaction_id
                     )
@@ -337,3 +345,7 @@ def edit_transaction(request, transaction_id):
         })
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+# UPDATE TRANSACTION CATEGORIES:
+# REPLACE '_' IN CATS WITH SPACE
+# CHECK BUDGET/SAVINGS CATEGORIES ALSO

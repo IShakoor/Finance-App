@@ -73,6 +73,11 @@ INSTALLED_APPS = [
     'app',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'app.backends.authBackend.EncryptedEmailBackend',
+]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
