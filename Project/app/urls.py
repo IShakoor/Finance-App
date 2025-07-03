@@ -3,11 +3,6 @@ from app.views import *
 
 # Setting the allowed urls for the app
 urlpatterns = [
-    path('', home_view, name='home'),
-    path('exchange-public-token/', exchange_public_token, name='exchange_public_token'),
-    path('create-link-token/', create_link_token, name='create_link_token'),
-    path('sync-bank-accounts/', sync_bank_accounts, name='sync_bank_accounts'),
-    path('get-account-balance/', get_account_balance, name='get_account_balance'),
     path('get-all-transactions/', get_all_transactions, name='get_all_transactions'),
     path('get-categories/', get_categories, name='get_categories'),
     path('get-bank-accounts/', get_bank_accounts, name='get_bank_accounts'),
@@ -26,7 +21,6 @@ urlpatterns = [
     path('edit-budget/<int:budget_id>/', edit_budget, name='edit_budget'),
     path('delete-budget/<int:budget_id>/', delete_budget, name='delete_budget'),
     path('update-budget-progress/<int:budget_id>/', update_budget_progress, name='update_budget_progress'),
-    path('delete-bank-account/<int:account_id>/', delete_bank_account, name='delete_bank_account'),
     path('get-all-transactions-insights/', get_all_transactions_insights, name='get_all_transactions_insights'),
     path('get-category-breakdown/', get_category_breakdown, name='get_category_breakdown'),
     path('get-account-breakdown/', get_account_breakdown, name='get_account_breakdown'),

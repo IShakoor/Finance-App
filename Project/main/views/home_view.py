@@ -5,6 +5,6 @@ from django.views.decorators.http import require_GET
 @require_GET
 @login_required
 def home_view(request):
-    return render(request, 'app/home.html', {
+    return render(request, 'main/home.html', {
         'user': request.user
     })

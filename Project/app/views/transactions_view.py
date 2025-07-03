@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from app.views.plaid_client import *
+from banking.views.plaid_client import *
 from app.models import Transaction
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST, require_GET
@@ -8,7 +8,7 @@ from datetime import datetime
 from plaid.model.transactions_sync_request import TransactionsSyncRequest
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from app.models.bankAccount import BankAccount
+from banking.models.bankAccount import BankAccount
 
 # render transaction page
 @login_required

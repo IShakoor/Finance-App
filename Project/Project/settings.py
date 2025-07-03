@@ -72,6 +72,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'accounts',
+    'banking',
+    'transactions',
+    'savings',
+    'budgets',
+    'analytics',
+    'main',
 ]
 
 AUTHENTICATION_BACKENDS = [

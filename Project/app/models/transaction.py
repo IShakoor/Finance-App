@@ -6,7 +6,7 @@ from encrypted_model_fields.fields import EncryptedTextField, EncryptedCharField
 # class to manage transactions
 class Transaction(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    bank_account = models.ForeignKey("app.BankAccount", on_delete=models.CASCADE)
+    bank_account = models.ForeignKey("banking.BankAccount", on_delete=models.CASCADE)
     name = EncryptedCharField(max_length=255)
     amount = EncryptedCharField(max_length=10, default='0.00')
     date = models.DateField()

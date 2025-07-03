@@ -1,4 +1,4 @@
-from app.views.plaid_client import *
+from banking.views.plaid_client import *
 from app.models import Transaction
 from datetime import datetime
 from .transactions_view import sync_transactions

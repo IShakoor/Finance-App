@@ -58,7 +58,7 @@
 
     <!-- script -->
     <script src="{% static 'app/js/messages.js' %}"></script>
-    <script src="{% static 'app/js/menu.js' %}"></script>
+    <script src="{% static 'main/js/menu.js' %}"></script>
     <script>
         const isAuthenticated = "{{ user.is_authenticated|lower }}" === "true";
         const hasAccessToken = "{{ user.plaid_access_token|default:'' }}" !== "";
