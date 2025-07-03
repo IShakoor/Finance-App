@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.models import BankAccount
+from accounts.models import BankAccount
 from app.tests.factories import UserFactory, BankAccountFactory
 
 # transaction models test

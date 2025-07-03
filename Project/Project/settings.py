@@ -23,7 +23,7 @@ DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-AUTH_USER_MODEL = 'app.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Email options for password recovery
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -71,10 +71,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'accounts',
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'app.backends.authBackend.EncryptedEmailBackend',
+    'accounts.backends.authBackend.EncryptedEmailBackend',
 ]
 
 

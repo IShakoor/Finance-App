@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from app.models.user import CustomUser
+from accounts.models.user import CustomUser
 from django.contrib import messages
-from app.forms.password_reset_request_form import PasswordResetForm
+from accounts.forms.password_reset_request_form import PasswordResetForm
 from django.urls import reverse
 from django.conf import settings
 
@@ -40,4 +40,4 @@ def password_reset_request(request):
     else:
         form = PasswordResetForm()
 
-    return render(request, 'app/password_reset.html', {'form': form})
+    return render(request, 'accounts/password_reset.html', {'form': form})

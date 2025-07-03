@@ -2,6 +2,7 @@ import factory
 import random
 import uuid
 from app.models import *
+from accounts.models.user import CustomUser
 
 # factory for the user model
 class UserFactory(factory.django.DjangoModelFactory):

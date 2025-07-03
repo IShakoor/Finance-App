@@ -3,4 +3,4 @@ from django.contrib.auth import logout
 
 def logout_view(request):
     logout(request)
-    return render(request, "app/logout.html")
+    return render(request, "accounts/logout.html")

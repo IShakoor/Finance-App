@@ -1,5 +1,5 @@
 from django.db import models
-from app.models import CustomUser
+from accounts.models import CustomUser
 from app.models import Transaction
 from django.utils.timezone import now
 from django.core.validators import MinValueValidator

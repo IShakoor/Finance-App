@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from app.models import CustomUser
+from accounts.models import CustomUser
 from django.core.exceptions import ValidationError
 import re
 

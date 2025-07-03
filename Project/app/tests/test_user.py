@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.models import CustomUser
+from accounts.models import CustomUser
 from app.tests.factories import UserFactory
 
 class UserModelTests(TestCase):

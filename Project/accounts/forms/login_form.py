@@ -1,5 +1,5 @@
 from django import forms
-from app.models import CustomUser
+from accounts.models import CustomUser
 
 class LoginForm(forms.Form):
     email = forms.EmailField(

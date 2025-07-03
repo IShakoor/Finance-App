@@ -345,7 +345,3 @@ def edit_transaction(request, transaction_id):
         })
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
-    
-# UPDATE TRANSACTION CATEGORIES:
-# REPLACE '_' IN CATS WITH SPACE
-# CHECK BUDGET/SAVINGS CATEGORIES ALSO

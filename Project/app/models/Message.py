@@ -1,5 +1,5 @@
 from django.db import models
-from .user import CustomUser
+from accounts.models.user import CustomUser
 from encrypted_model_fields.fields import EncryptedTextField
 
 class Message(models.Model):

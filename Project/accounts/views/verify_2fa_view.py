@@ -30,6 +30,6 @@ def verify_2fa_view(request):
                 del request.session['pending_user_id']
             return redirect('home')
 
-        return render(request, 'app/verify_2fa.html', {'error': 'Invalid code. Try again.'})
+        return render(request, 'accounts/verify_2fa.html', {'error': 'Invalid code. Try again.'})
 
-    return render(request, 'app/verify_2fa.html')
+    return render(request, 'accounts/verify_2fa.html')

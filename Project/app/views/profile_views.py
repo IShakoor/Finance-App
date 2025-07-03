@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
-from app.models import CustomUser
+from accounts.models import CustomUser
 import json
 import re
 

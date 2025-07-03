@@ -1,5 +1,5 @@
 from django.db import models
-from app.models import CustomUser
+from accounts.models import CustomUser
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 from django.utils import timezone

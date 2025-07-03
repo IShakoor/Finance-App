@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from app.forms.signup_form import SignupForm
+from accounts.forms.signup_form import SignupForm
 from django.urls import reverse
 from django.conf import settings
 from django.views.decorators.http import require_http_methods
@@ -21,7 +21,7 @@ def signup_view(request):
         try:
             send_mail(
                 'Signup Verification Code',
-                f'Your verification code is {verification_code}. Enter this in the app to activate your account.',
+                f'Your verification code is {verification_code} Enter this in the app to activate your account.',
                 settings.EMAIL_HOST_USER,
                 [user.email],
                 fail_silently=False,
@@ -39,13 +39,13 @@ def signup_view(request):
         if send_verification_code_email(user, verification_code):
             return redirect(reverse('verify_2fa'))
         else:
-            return render(request, 'app/signup.html', {'form': form})
+            return render(request, 'accounts/signup.html', {'form': form})
 
     form = get_form()
     if request.method == 'POST':
         if form.is_valid():
             return handle_post_request(form)
         else:
-            return render(request, 'app/signup.html', {'form': form})
+            return render(request, 'accounts/signup.html', {'form': form})
     else:
-        return render(request, 'app/signup.html', {'form': form})
+        return render(request, 'accounts/signup.html', {'form': form})

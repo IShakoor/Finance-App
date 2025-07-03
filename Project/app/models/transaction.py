@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from .user import CustomUser
+from accounts.models.user import CustomUser
 from encrypted_model_fields.fields import EncryptedTextField, EncryptedCharField
 
 # class to manage transactions

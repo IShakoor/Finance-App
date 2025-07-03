@@ -1,4 +1,3 @@
-from .user import CustomUser
 from .transaction import Transaction
 from.savingsGoal import SavingsGoal
 from .budget import Budget

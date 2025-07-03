@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.contrib.messages import get_messages
 from django.core import mail
 from unittest.mock import patch, MagicMock
-from app.models.user import CustomUser
+from accounts.models.user import CustomUser
 
 # testing the home view
 class HomeViewTests(TestCase):
