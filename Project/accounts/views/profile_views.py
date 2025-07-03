@@ -12,7 +12,7 @@ import re
 
 @login_required
 def profile_view(request):
-    return render(request, 'app/profile.html')
+    return render(request, 'accounts/profile.html')
 
 # edit user details
 @csrf_protect
