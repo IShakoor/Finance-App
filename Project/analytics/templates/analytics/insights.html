@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- load frontend styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Insights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'analytics/css/insights.css' %}">
+</head>
+<body>
+
+    <!-- background -->
+    <div class="bg-overlay">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Finance App</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'messages' %}" class="message-button"><i class="fa-regular fa-envelope"></i></a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'transactions' %}">Transactions</a>
+            <a href="{% url 'budgets' %}">Budgets</a>
+            <a href="{% url 'savings' %}">Savings</a>
+            <a href="{% url 'insights' %}">Insights</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </div>
+        
+    <main class="main-content">
+
+        <!-- display spending analytics -->
+        <section id="spending-insights-container" class="spending-insights-container">
+            <div class="spending-insights-box" id="spending-insights-box">
+                <div class="spending-insights-header">
+                    <h2 class="spending-insights-heading">Spending Insights</h2>
+                    <select id="spending-time-period-select">
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly" selected>Monthly</option>
+                        <option value="annual">Annual</option>
+                    </select>
+                </div>
+                <canvas id="spending-insights-chart"></canvas>
+                <!-- chart will load here -->
+            </div>
+        </section>
+        
+        <!-- category spending breakdowns -->
+        <section id="category-breakdown-container" class="category-breakdown-container">
+            <div class="category-breakdown-box" id="category-breakdown-box">
+                <div class="category-breakdown-header">
+                    <h2 class="category-breakdown-heading">Category Breakdown</h2>
+                </div>
+                <canvas id="category-breakdown-chart"></canvas>
+                <!-- chart will load here -->
+            </div>
+        </section>
+
+        <!-- account breakdown -->
+        <section id="account-breakdown-container" class="account-breakdown-container">
+            <div class="account-breakdown-box" id="account-breakdown-box">
+                <div class="account-breakdown-header">
+                    <h2 class="account-breakdown-heading">Account Breakdown</h2>
+                </div>
+                <canvas id="account-breakdown-chart"></canvas>
+                <!-- chart will load here -->
+            </div>
+        </section>
+
+        <!-- Spending stats section -->
+        <section id="statistics-container" class="statistics-container">
+            <div class="statistics-box" id="statistics-box">
+                <div class="statistics-header">
+                    <h2 class="statistics-heading">Spending Statistics</h2>
+                </div>
+            </div>
+        </section>
+
+                
+
+    </main>
+
+
+    <!-- scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'analytics/js/insights.js' %}"></script>
+    <script src="{% static 'main/js/menu.js' %}"></script>
+    <script>
+        const isAuthenticated = "{{ user.is_authenticated|lower }}" === "true";
+        const hasAccessToken = "{{ user.plaid_access_token|default:'' }}" !== "";
+    </script>
+</body>
+</html>

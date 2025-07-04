@@ -70,7 +70,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
     'accounts',
     'banking',
     'transactions',
@@ -78,6 +77,7 @@ INSTALLED_APPS = [
     'budgets',
     'analytics',
     'main',
+    'alerts',
 ]
 
 AUTHENTICATION_BACKENDS = [
