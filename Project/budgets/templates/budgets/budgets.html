@@ -10,7 +10,7 @@
     <title>Budgets</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static 'app/css/budgets.css' %}">
+    <link rel="stylesheet" href="{% static 'budgets/css/budgets.css' %}">
 </head>
 <body>
 
@@ -113,7 +113,7 @@
 
     <!-- plaid script -->
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-    <script src="{% static 'app/js/budgets.js' %}"></script>
+    <script src="{% static 'budgets/js/budgets.js' %}"></script>
     <script src="{% static 'main/js/menu.js' %}"></script>
     <script>
         const isAuthenticated = "{{ user.is_authenticated|lower }};";

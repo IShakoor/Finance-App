@@ -5,7 +5,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_protect
 from app.models import Message
 
-# render the budget page
+# render the messages page
 @login_required
 def messages_view(request):
     return render(request, "app/messages.html")

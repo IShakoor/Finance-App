@@ -5,7 +5,7 @@ from django.utils.timezone import now
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 
-
+# store budget data
 class Budget(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="budgets")
     name = models.CharField(max_length=255)

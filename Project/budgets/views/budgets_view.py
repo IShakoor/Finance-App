@@ -4,7 +4,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET
 import json
-from app.models import Budget, Message
+from app.models import Message
+from budgets.models import Budget
 from transactions.models import Transaction
 from django.utils import timezone
 from decimal import Decimal
@@ -12,7 +13,7 @@ from decimal import Decimal
 # render the budget page
 @login_required
 def budgets_view(request):
-    return render(request, "app/budgets.html")
+    return render(request, "budgets/budgets.html")
 
 # get all budgets
 @login_required
