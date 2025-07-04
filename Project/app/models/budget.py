@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import CustomUser
-from app.models import Transaction
+from transactions.models import Transaction
 from django.utils.timezone import now
 from django.core.validators import MinValueValidator
 from decimal import Decimal

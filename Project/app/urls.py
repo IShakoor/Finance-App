@@ -3,13 +3,6 @@ from app.views import *
 
 # Setting the allowed urls for the app
 urlpatterns = [
-    path('get-all-transactions/', get_all_transactions, name='get_all_transactions'),
-    path('get-categories/', get_categories, name='get_categories'),
-    path('get-bank-accounts/', get_bank_accounts, name='get_bank_accounts'),
-    path('transactions/', transactions_page, name='transactions'),
-    path('add-transaction/', add_transaction, name='add_transaction'),
-    path('edit-transaction/<int:transaction_id>/', edit_transaction, name='edit_transaction'),
-    path('delete-transaction/<int:transaction_id>/', delete_transaction, name='delete_transaction'),
     path('savings/', savings_view, name='savings'),
     path('add-savings-goal/', add_goal, name='add_savings_goal'),
     path('get-all-goals/', get_all_goals, name='get_all_goals'),

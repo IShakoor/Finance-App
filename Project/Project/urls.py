@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('app.urls')),
     path('', include('accounts.urls')),
     path('', include('banking.urls')),
-    # path('', include('transactions.urls')),
+    path('', include('transactions.urls')),
     # path('', include('savings.urls')),
     # path('', include('budgets.urls')),
     # path('', include('analytics.urls')),

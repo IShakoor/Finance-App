@@ -12,7 +12,7 @@ class Transaction(models.Model):
     date = models.DateField()
     category = EncryptedTextField(max_length=100, blank=True, null=True)
     is_received = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=255, unique=True)
+    transaction_id = models.CharField(max_length=255, unique=True) # plaid id
 
     # prevent negative value amounts
     def clean(self):

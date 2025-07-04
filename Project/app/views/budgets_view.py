@@ -4,7 +4,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET
 import json
-from app.models import Budget, Transaction, Message
+from app.models import Budget, Message
+from transactions.models import Transaction
 from django.utils import timezone
 from decimal import Decimal
 

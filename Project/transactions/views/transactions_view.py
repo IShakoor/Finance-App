@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from banking.views.plaid_client import *
-from app.models import Transaction
+from transactions.models import Transaction, DeletedTransaction
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ from banking.models.bankAccount import BankAccount
 # render transaction page
 @login_required
 def transactions_page(request):
-    return render(request, 'app/transactions.html')
+    return render(request, 'transactions/transactions.html')
 
 # get all transactions
 @require_GET
@@ -231,6 +231,14 @@ def sync_transactions(user):
             Transaction.objects.filter(user=user).values_list('transaction_id', flat=True)
         )
 
+        # include deleted ones
+        deleted_transaction_ids = set(
+            DeletedTransaction.objects.filter(user=user).values_list('transaction_id', flat=True)
+        )
+
+        # combine deleted & non-deleted transactions
+        ignored_transaction_ids = existing_transaction_ids.union(deleted_transaction_ids)
+
         # collect transactions from api
         while True:
             request_data = TransactionsSyncRequest(
@@ -242,7 +250,7 @@ def sync_transactions(user):
 
             # use transaction id to prvent duplication
             for txn in plaid_transactions:
-                if txn.transaction_id in existing_transaction_ids:
+                if txn.transaction_id in ignored_transaction_ids:
                     skipped_count += 1
                     continue
 
@@ -300,7 +308,15 @@ def delete_transaction(request, transaction_id):
         return JsonResponse({'error': 'User is not authenticated.'}, status=401)
 
     try:
-        get_object_or_404(Transaction, id=transaction_id, user=request.user).delete()
+        txn = get_object_or_404(Transaction, id=transaction_id, user=request.user)
+
+        # save deleted transaction for tracking
+        DeletedTransaction.objects.get_or_create(
+            user=request.user,
+            transaction_id=txn.transaction_id
+        )
+        txn.delete()
+
         return JsonResponse({'success': True})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -345,3 +361,50 @@ def edit_transaction(request, transaction_id):
         })
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+
+
+# ✅ Fix Options
+# Option 1: Track Deleted Transactions
+# Create a model like DeletedTransaction that records transaction_ids of deleted transactions so they aren't re-imported:
+
+# python
+# Copy
+# Edit
+# class DeletedTransaction(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     transaction_id = models.CharField(max_length=100)
+#     deleted_at = models.DateTimeField(auto_now_add=True)
+# Update delete_transaction view:
+
+# python
+# Copy
+# Edit
+# @csrf_protect
+# @require_POST
+# @login_required
+# def delete_transaction(request, transaction_id):
+#     if not request.user.is_authenticated:
+#         return JsonResponse({'error': 'User is not authenticated.'}, status=401)
+
+#     try:
+#         txn = get_object_or_404(Transaction, id=transaction_id, user=request.user)
+#         DeletedTransaction.objects.create(user=request.user, transaction_id=txn.transaction_id)
+#         txn.delete()
+#         return JsonResponse({'success': True})
+#     except Exception as e:
+#         return JsonResponse({'error': str(e)}, status=500)
+# Then update sync_transactions to skip Plaid transactions that exist in the DeletedTransaction table:
+
+# python
+# Copy
+# Edit
+# deleted_ids = set(
+#     DeletedTransaction.objects.filter(user=user).values_list('transaction_id', flat=True)
+# )
+
+# ...
+
+# if txn.transaction_id in existing_transaction_ids or txn.transaction_id in deleted_ids:
+#     skipped_count += 1
+#     continue
