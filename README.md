@@ -12,6 +12,7 @@ This finance app aims to simplify personal finance management by providing power
 - Budgeting, with automatic tracking
 - Setting savings goals
 - Spending insights & Analytics
+- Alerts for important events
 
 ## 🛠️ Tech Stack
 - PostgreSQL
@@ -116,19 +117,19 @@ This finance app aims to simplify personal finance management by providing power
 
         https://temp-mail.org/en
 
-## App Showcase:
+## 🎥 App Showcase:
 
 ### Homepage:
-![Homepage Image](Project/app/static/app/images/Homepage.png)
+![Homepage Image](Project/assets/Homepage.png)
 
 ### Transactions Page:
-![Transactions Image](Project/app/static/app/images/Transactions.png)
+![Transactions Image](Project/assets/Transactions.png)
 
 ### Budgets Page:
-![Budgets Image](Project/app/static/app/images/Budgets.png)
+![Budgets Image](Project/assets/Budgets.png)
 
 ### Savings Page:
-![Savings Image](Project/app/static/app/images/Savings.png)
+![Savings Image](Project/assets/Savings.png)
 
 ### Insights Page:
-![Insights Image](Project/app/static/app/images/Insights.png)
+![Insights Image](Project/assets/Insights.png)
